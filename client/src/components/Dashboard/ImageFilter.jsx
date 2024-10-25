@@ -76,7 +76,7 @@ export default function ImageFilter() {
             </div>
 
             {
-                view === 'grid' ? <ImageList images={images} /> : <ImageGrid images={images} />
+                view === 'grid' ? <ImageGrid images={images} /> :<ImageList images={images} /> 
             }
             
         </>
