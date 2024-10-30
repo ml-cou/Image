@@ -16,7 +16,7 @@ interface SidebarProps {
 
 const menuGroups = [
   {
-    name: "MENU",
+    name: "",
     menuItems: [
       {
         icon: (
@@ -46,9 +46,9 @@ const menuGroups = [
             />
           </svg>
         ),
-        label: "Dashboard",
+        label: "System Manager",
         route: "#",
-        children: [{ label: "SideMenu", route: "/" }],
+        children: [{ label: "Upload File", route: "/" }],
       },
     ],
   },
@@ -127,7 +127,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         </div>
 
         <div>
-      <FileUpload />
       </div>
       </aside>
     </ClickOutside>

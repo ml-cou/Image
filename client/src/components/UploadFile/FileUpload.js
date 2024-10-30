@@ -74,7 +74,7 @@ export default function FileUpload() {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className={`h-auto ${darkMode ? 'dark' : ''} sm:px-8 md:px-1 sm:py-8`}>
+    <div className={`h-auto ${darkMode ? 'dark' : ''} sm:px-8 md:px-1 `}>
       <main className="mx-auto max-w-screen-lg h-full">
         <article
           aria-label="File Upload Modal"
@@ -106,7 +106,7 @@ export default function FileUpload() {
           <section className="h-full overflow-auto p-2 w-full flex flex-col">
             <header className="border-dashed border-2 border-gray-400 py-1 flex flex-col justify-center items-center dark:border-gray-600">
               <p className="mb-2 text-sm font-semibold text-gray-900 dark:text-gray-200 flex flex-wrap justify-center">
-                <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
+                <span>Drag and drop OR</span>
               </p>
               <input
                 id="hidden-input"
@@ -123,8 +123,11 @@ export default function FileUpload() {
                 Upload a file
               </button>
             </header>
-  
-            <h1 className="pt-3 pb-3 font-semibold sm:text-lg text-gray-900 dark:text-gray-200">
+
+            {
+              Object.keys(files).length > 0 && (
+                <>
+                <h1 className="pt-3 pb-3 font-semibold sm:text-lg text-gray-900 dark:text-gray-200">
               To Upload
             </h1>
   
@@ -185,24 +188,27 @@ export default function FileUpload() {
                 ))
               )}
             </ul>
+            <footer className="flex justify-end pb-8 pt-4">
+              <button
+                id="submit"
+                className="rounded-sm px-3 py-1 bg-blue-700 hover:bg-blue-500 text-white focus:shadow-outline focus:outline-none"
+                onClick={handleSubmit}
+              >
+                Upload now
+              </button>
+              <button
+                id="cancel"
+                className="ml-3 rounded-sm px-3 py-1 hover:bg-gray-300 dark:hover:bg-gray-600 focus:shadow-outline focus:outline-none"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+            </footer>
+                </>
+              )
+            }
           </section>
   
-          <footer className="flex justify-end px-8 pb-8 pt-4">
-            <button
-              id="submit"
-              className="rounded-sm px-3 py-1 bg-blue-700 hover:bg-blue-500 text-white focus:shadow-outline focus:outline-none"
-              onClick={handleSubmit}
-            >
-              Upload now
-            </button>
-            <button
-              id="cancel"
-              className="ml-3 rounded-sm px-3 py-1 hover:bg-gray-300 dark:hover:bg-gray-600 focus:shadow-outline focus:outline-none"
-              onClick={handleCancel}
-            >
-              Cancel
-            </button>
-          </footer>
         </article>
       </main>
     </div>

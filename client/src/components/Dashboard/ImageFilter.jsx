@@ -65,8 +65,8 @@ export default function ImageFilter() {
                 </div>
             </form>
             <div className="w-full pb-3 flex justify-between items-center z-10">
-                <div className="flex space-x-3">
-                   <SplitDropdown splitValue={splitValue} setSplitValue={setSplitValue} />
+                <div className="flex space-x-3 z-50">
+                    <SplitDropdown splitValue={splitValue} setSplitValue={setSplitValue} />
                     <Dropdown selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
                     <SortDropdown sortOption={SortOption} setSortOption={setSortOption} />
                 </div>
@@ -75,9 +75,9 @@ export default function ImageFilter() {
                 </div>
             </div>
 
-            {
-                view === 'grid' ? <ImageGrid images={images} /> :<ImageList images={images} /> 
-            }
+                {
+                view === 'grid' ? <ImageGrid images={images} /> : <ImageList images={images} />
+                }
             
         </>
     );

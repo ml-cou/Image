@@ -8,14 +8,14 @@ export default function ImageList({ images }) {
       {images && images.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 ">
           {images.map((image, index) => (
-            <div key={index} className="flex items-center bg-gray-800 rounded-lg p-2 hover:border border-green-600 text-white shadow-md relative ">
+            <div key={index} className="flex items-center bg-gray-800 rounded-lg p-2 hover:bg-gray-700 text-white shadow-md relative ">
               <img
                 src={image.image}
                 alt={image.filename}
                 className="h-16 w-16 object-cover rounded mr-4"
               />
               <div className="flex-grow">
-                <div className="text-xs font-semibold">FILENAME : {image.filename}</div>
+                <div className="text-xs font-semibold">FILENAME : {image.title}</div>
                 <div className="text-xs">
                   ANNOTATIONS : {image.annotations} {image.classes}
                 </div>

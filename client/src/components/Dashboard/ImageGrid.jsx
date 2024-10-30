@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import info from "../../../public/images/icon/info.png";
+import Image from "next/image";
+import EditableModal from "./EditableModal";
 
 function ImageGallery({ images }) {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -12,7 +15,6 @@ function ImageGallery({ images }) {
         setSelectedImage(null);
     };
 
-    // Close modal if click occurs outside of modal content
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -43,32 +45,16 @@ function ImageGallery({ images }) {
                    <p className="line-clamp-1">{image.title}</p>
                     <button
                         onClick={() => handleShowDetails(image)}
-                        className="absolute top-2 right-2 bg-green-600 text-white text-sm py-1 px-2 rounded hover:bg-green-500"
+                        className="absolute top-2 right-2 bg-green-300 text-white text-sm py-1 px-2 rounded hover:bg-green-500"
                     >
-                        Details
+                        <Image src={info} alt="info" width={20} height={20} />
                     </button>
                 </div>
             )) : (
                 <p>No images</p>
             )}
 
-            {selectedImage && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div
-                        ref={modalRef}
-                        className="bg-white p-6 rounded-lg shadow-lg w-11/12 sm:w-1/2 md:w-1/3 lg:w-1/4"
-                    >
-                        <img
-                            className="w-full h-60 object-cover rounded-lg mb-4"
-                            src={selectedImage.image}
-                            alt="selected-gallery-photo"
-                        />
-                        <h3 className="text-lg font-bold mb-2">{selectedImage.title}</h3>
-                        <p>{selectedImage.description}</p> 
-                        
-                    </div>
-                </div>
-            )}
+            {selectedImage && < EditableModal selectedImage={selectedImage} onClose={handleCloseDetails} />}
         </div>
     );
 }
