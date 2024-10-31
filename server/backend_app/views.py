@@ -9,14 +9,16 @@ from .serializers import PhotoSerializer
 
 class ImageView(APIView):
     def get(self, request):
-        images = Photo.objects.all()
+        search_query = request.query_params.get('search', '')
+        sort_by = request.query_params.get('sort_by', '-created_at')
+        
+        images = Photo.objects.filter(title__icontains=search_query).order_by(sort_by)
         serializer = PhotoSerializer(images, many=True, context={'request': request})
         return Response({'images': serializer.data}, status=status.HTTP_200_OK)
-
     def post(self, request):
         try:
             images = request.FILES.getlist('files')
-            for image in images:
+            for image in reversed(images):
                 pil_image = Image.open(image)
                 
                 title = pil_image.info.get('title', image.name)
@@ -41,3 +43,25 @@ class ImageView(APIView):
             return Response({'message': 'Images uploaded successfully'}, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': f'Error uploading images: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    def put(self, request, pk):
+        try:
+            image = Photo.objects.get(pk=pk)
+            new_title = request.data['title']
+            image.title = new_title
+            image.save()
+            return Response({'message': 'Image title updated successfully'}, status=status.HTTP_200_OK)
+        except Photo.DoesNotExist:
+            return Response({'error': 'Image not found'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': f'Error updating image title: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    def delete(self, request, pk):
+        try:
+            image = Photo.objects.get(pk=pk)
+            image.delete()
+            return Response({'message': 'Image deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+        except Photo.DoesNotExist:
+            return Response({'error': 'Image not found'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': f'Error deleting image: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

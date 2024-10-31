@@ -1,4 +1,6 @@
-*/__pycache__/
 /media/
 db.sqlite3
-/backend_app/migrations/__pycache__/
+.env
+backend_app/__pycache__/
+backend_app/migrations/__pycache__/
+server/__pycache__/
