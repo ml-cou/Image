@@ -1,6 +1,6 @@
-const baseUrl = 'http://localhost:8000/';
+const baseUrl = process.env.BACKEND_BASE_URL;
 
-export const callApi = async (url, method = 'GET', body = null) => {
+const callApi = async (url, method = 'GET', body = null) => {
   try {
     const options = {
       method,
@@ -25,3 +25,5 @@ export const callApi = async (url, method = 'GET', body = null) => {
     return { success: false, message: error.message };
   }
 };
+
+export default callApi;

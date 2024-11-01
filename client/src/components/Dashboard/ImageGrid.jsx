@@ -3,7 +3,7 @@ import info from "../../../public/images/icon/info.png";
 import Image from "next/image";
 import EditableModal from "./EditableModal";
 
-function ImageGallery({ images }) {
+function ImageGallery({ images , fetchImages}) {
     const [selectedImage, setSelectedImage] = useState(null);
     const modalRef = useRef(null);
 
@@ -54,7 +54,14 @@ function ImageGallery({ images }) {
                 <p>No images</p>
             )}
 
-            {selectedImage && < EditableModal selectedImage={selectedImage} onClose={handleCloseDetails} />}
+            {selectedImage && (
+                <EditableModal
+                    selectedImage={selectedImage}
+                    onClose={handleCloseDetails}
+                    fetchImages={fetchImages}
+                    modalRef={modalRef}
+                />
+            )}
         </div>
     );
 }
